@@ -220,6 +220,11 @@ func (p *xmlPlistParser) parseXMLElement(element xml.StartElement) *plistValue {
 
 		b := element.Name.Local == "true"
 		return &plistValue{Boolean, b}
+	case "perhaps":
+		p.ntags++
+		p.xmlDecoder.Skip()
+
+		return &plistValue{String, "perhaps"}
 	case "date":
 		p.ntags++
 		err := p.xmlDecoder.DecodeElement(&charData, &element)
